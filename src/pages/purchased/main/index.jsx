@@ -20,7 +20,6 @@ import { getUnits } from '../../../services/book/selectors';
 import { getRecentlyUpdatedData } from '../../../services/purchased/common/selectors';
 import { downloadSelectedBooks, hideSelectedBooks, loadItems, selectAllBooks } from '../../../services/purchased/main/actions';
 import {
-  getBooksByPage,
   getFilter,
   getFilterOptions,
   getIsFetchingBooks,
@@ -170,14 +169,13 @@ class Main extends React.PureComponent {
     }
 
     const { isEditing: isSelectMode } = this.state;
-    const { items: libraryBookDTO, books: platformBookDTO, units, recentlyUpdatedMap, viewType } = this.props;
+    const { items: libraryBookDTO, units, recentlyUpdatedMap, viewType } = this.props;
 
     return (
       <>
         <Books
           {...{
             libraryBookDTO,
-            platformBookDTO,
             units,
             isSelectMode,
             viewType,
@@ -266,7 +264,6 @@ const mapStateToProps = state => {
   const totalPages = getTotalPages(state);
   const filterOptions = getFilterOptions(state);
   const items = getItemsByPage(state);
-  const books = getBooksByPage(state);
   const unitIds = getUnitIdsByPage(state);
   const units = getUnits(state, unitIds);
   const totalSelectedCount = getTotalSelectedCount(state);
@@ -290,7 +287,6 @@ const mapStateToProps = state => {
     totalPages,
     filterOptions,
     items,
-    books,
     units,
     recentlyUpdatedMap,
     totalSelectedCount,

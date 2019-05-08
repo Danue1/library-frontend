@@ -132,19 +132,13 @@ class HiddenUnit extends React.Component {
 
   renderSeriesList() {
     const {
-      primaryBookId,
       pageInfo: { currentPage, totalPages, unitId },
       isFetchingBook,
       items,
-      books,
       unit,
       dispatchSelectAllBooks,
       dispatchClearSelectedBooks,
     } = this.props;
-
-    if (!books[primaryBookId]) {
-      return null;
-    }
 
     return (
       <SeriesList
@@ -158,7 +152,6 @@ class HiddenUnit extends React.Component {
         emptyProps={{ icon: 'book_5', message: '숨긴 도서가 없습니다.' }}
         isFetching={isFetchingBook}
         items={items}
-        books={books}
         unit={unit}
         onClickSelectAllBooks={dispatchSelectAllBooks}
         onClickUnselectAllBooks={dispatchClearSelectedBooks}

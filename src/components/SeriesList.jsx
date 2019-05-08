@@ -127,7 +127,6 @@ class SeriesList extends React.Component {
     const {
       primaryItem,
       items,
-      books,
       isFetching,
       unit,
       linkWebviewer,
@@ -169,7 +168,6 @@ class SeriesList extends React.Component {
     return (
       <Books
         libraryBookDTO={items}
-        platformBookDTO={books}
         isSelectMode={isEditing}
         viewType={ViewType.LANDSCAPE}
         linkBuilder={linkBuilder(linkWebviewer)}

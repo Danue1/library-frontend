@@ -5,9 +5,11 @@ import { isAfter, subDays } from 'date-fns';
 import { merge } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { UnitType } from '../../constants/unitType';
 import ViewType from '../../constants/viewType';
 import { showShelfBookAlertToast } from '../../services/book/actions';
+import { getBooks } from '../../services/book/selectors';
 import { toggleBook } from '../../services/selection/actions';
 import { getSelectedBooks } from '../../services/selection/selectors';
 import * as styles from '../../styles/books';
@@ -106,9 +108,19 @@ const refineBookData = ({
   };
 };
 
-const mapStateToProps = state => ({
-  selectedBooks: getSelectedBooks(state),
-});
+const mapStateToPropsFactory = () => {
+  const selectBookIds = createSelector(
+    props => props.libraryBookDTO,
+    items => items.map(x => x.b_id),
+  );
+  return (state, props) => {
+    const bookIds = selectBookIds(props);
+    return {
+      selectedBooks: getSelectedBooks(state),
+      platformBookDTO: getBooks(state, bookIds),
+    };
+  };
+};
 
 const mapDispatchToProps = {
   onSelectedChange: toggleBook,
@@ -116,7 +128,7 @@ const mapDispatchToProps = {
 };
 
 export const Books = connect(
-  mapStateToProps,
+  mapStateToPropsFactory,
   mapDispatchToProps,
 )(props => {
   const isLoaded = true;

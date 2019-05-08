@@ -12,7 +12,7 @@ import { OrderOptions } from '../../constants/orderOptions';
 import SeriesList from '../../components/SeriesList';
 import { BookError } from '../../components/Error';
 
-import { getBook } from '../../services/book/selectors';
+import { getBook, getBookDescription, getBookStarRating, getUnit } from '../../services/book/selectors';
 import { getTotalSelectedCount } from '../../services/selection/selectors';
 
 class UnitPageTemplate extends React.Component {
@@ -155,6 +155,9 @@ class UnitPageTemplate extends React.Component {
 const mapStateToProps = (state, props) => ({
   isSelected: getTotalSelectedCount(state) !== 0,
   primaryBook: getBook(state, props.primaryBookId),
+  unit: getUnit(state, props.unitId),
+  bookDescription: getBookDescription(state, props.primaryBookId),
+  bookStarRating: getBookStarRating(state, props.primaryBookId),
 });
 
 export default connect(mapStateToProps)(UnitPageTemplate);

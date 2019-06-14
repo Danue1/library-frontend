@@ -5,9 +5,11 @@ export const toDict = (arr, key, extracter = item => item) =>
   }, {});
 
 export const toFlatten = (array, key, skipNull = false) => {
-  const _array = skipNull ? array.filter(value => !!value) : array;
   const keys = key.split('.');
-  return keys.reduce((data, key) => data.map(value => value[key]), _array);
+  return keys.reduce((data, key) => {
+    const _data = skipNull ? data.filter(value => !!value) : array;
+    return _data.map(value => value[key]);
+  }, array);
 };
 
 export const makeRange = (start, end) => Array.from({ length: end - start }, (_, k) => k + start);

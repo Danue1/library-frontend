@@ -31,9 +31,9 @@ export const makeRange = (start, end) => Array.from({ length: end - start }, (_,
 export const concat = (arr, glue = '_') => arr.join(glue);
 
 export const splitArrayByChunk = (array, chunkSize) =>
-  Array(Math.ceil(array.length / chunkSize))
-    .fill()
-    .map((_, index) => index * chunkSize)
-    .map(begin => array.slice(begin, begin + chunkSize));
+  Array.from({ length: Math.ceil(array.length / chunkSize) }, (_, index) => {
+    const begin = index * chunkSize;
+    return array.slice(begin, begin + chunkSize);
+  });
 
 export const makeUnique = array => [...new Set(array)];

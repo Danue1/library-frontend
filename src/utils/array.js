@@ -4,22 +4,10 @@ export const toDict = (arr, key, extracter = item => item) =>
     return previous;
   }, {});
 
-export const toFlatten = (arr, key, skipNull = false) => {
-  const splited = key.split('.');
-  const _key = splited.shift();
-
-  let data;
-  if (skipNull) {
-    data = arr.filter(value => !!value).map(value => value[_key]);
-  } else {
-    data = arr.map(value => value[_key]);
-  }
-
-  if (splited.length === 0) {
-    return data;
-  }
-
-  return toFlatten(data, splited.join('.'), skipNull);
+export const toFlatten = (array, key, skipNull = false) => {
+  const _array = skipNull ? array.filter(value => !!value) : array;
+  const keys = key.split('.');
+  return keys.reduce((data, key) => data.map(value => value[key]), _array);
 };
 
 export const makeRange = (start, end) => Array.from({ length: end - start }, (_, k) => k + start);

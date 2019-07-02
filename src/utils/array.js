@@ -7,7 +7,7 @@ export const toDict = (arr, key, extracter = item => item) =>
 export const toFlatten = (array, key, skipNull = false) => {
   const keys = key.split('.');
   return keys.reduce((data, key) => {
-    const _data = skipNull ? data.filter(value => !!value) : array;
+    const _data = skipNull ? data.filter(value => !!value) : data;
     return _data.map(value => value[key]);
   }, array);
 };
